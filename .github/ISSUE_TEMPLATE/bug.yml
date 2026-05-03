@@ -1,0 +1,34 @@
+name: Bug
+description: Дефект с контекстом воспроизведения
+title: '[Bug] '
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **cookie-backend.** Укажите окружение, шаги, ожидание vs факт, логи/trace id.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: trace
+    attributes:
+      label: Trace (optional)
+      description: FR / область, ссылка на эндпоинт или компонент.
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+    validations:
+      required: false

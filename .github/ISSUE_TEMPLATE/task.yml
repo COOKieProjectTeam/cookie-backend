@@ -1,0 +1,52 @@
+name: Task — feature / sprint work
+description: Задача с трассировкой к vault (backend: API, модели, ошибки)
+title: '[S+] API: '
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **cookie-backend:** опишите контракт (эндпоинты, схемы, коды ошибок), миграции и нефункциональные ограничения (rate limit, идемпотентность). В **Companion** укажите номер парной задачи в **cookie-frontend**. Структура секций — см. vault `Knowledge/Development/Projects/COOKie/process/github-issue-format.md`.
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope (in / out)
+    validations:
+      required: true
+  - type: textarea
+    id: trace
+    attributes:
+      label: Trace
+      description: FR (обязательно). Опционально UC, NFR. Строка «Vault:» — путь к заметке в Obsidian.
+      placeholder: |
+        - FR: FR-US-001
+        - NFR: …
+        - Vault: Knowledge/Development/Projects/COOKie/requirements/SRS.md §…
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Контракт API, тесты, наблюдаемость (логи/метрики) при необходимости.
+    validations:
+      required: true
+  - type: textarea
+    id: companion
+    attributes:
+      label: Companion (frontend issue)
+      description: 'Ссылка или номер парной задачи в cookie-frontend, например: https://github.com/COOKieProjectTeam/cookie-frontend/issues/N'
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+    validations:
+      required: false

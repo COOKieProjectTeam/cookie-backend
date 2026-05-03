@@ -1,0 +1,22 @@
+---
+description: COOKie backend — источники правды, стек, задачи GitHub
+globs:
+  - "**/*.cs"
+  - "**/*.csproj"
+  - "**/*.json"
+  - ".github/**/*"
+alwaysApply: false
+---
+
+# COOKie — cookie-backend
+
+## Источники правды
+
+- **Тексты требований и архитектуры (канон):** Obsidian vault — `Knowledge/Development/Projects/COOKie/` на машине автора (не дублировать BRD/SRS в коде или issues полностью).
+- **Формат issues и Trace:** см. описание полей в `.github/ISSUE_TEMPLATE/task.yml` и блок **Goal / Scope / Trace / Acceptance / Companion**; ориентир процесса в vault: `Knowledge/Development/Projects/COOKie/process/github-issue-format.md`.
+- **Техстек канон:** тот же путь vault — `architecture/technical/tech-stack.md` (ASP.NET Core **8**, EF Core **8**, PostgreSQL **15**, Redis **7**, REST + JWT + **swagger**, FluentValidation и т.д.). При конфликте с `package.json`/кодом — приоритет **документ vault** или заведите issue на CR к спеки.
+
+## Практика
+
+- Контракт API согласовывать с фронтом; в задачах указывать **Companion** на issue в `cookie-frontend` при вертикали.
+- Не расширять scope без явного согласования (в т.ч. смена FW вне канона из tech-stack).
