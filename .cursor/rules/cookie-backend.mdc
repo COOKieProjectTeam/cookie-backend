@@ -20,3 +20,7 @@ alwaysApply: false
 
 - Контракт API согласовывать с фронтом; в задачах указывать **Companion** на issue в `cookie-frontend` при вертикали.
 - Не расширять scope без явного согласования (в т.ч. смена FW вне канона из tech-stack).
+
+## Защищённый `main`
+
+Ветка **`main`** на GitHub защищена: см. [.claude/rules/protected-main.md](../../.claude/rules/protected-main.md) — новая ветка от `origin/main`, push, **Pull Request → `main`**, в теле PR — связь с **issue** (`Closes`/`Refs #N`).
