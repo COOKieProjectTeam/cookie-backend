@@ -12,6 +12,11 @@
 
 Форма: `.github/ISSUE_TEMPLATE/task.yml`.
 
+## Pull Request
+
+- **`main`** защищён на GitHub: работа только в отдельной ветке и через **Pull Request**. Подробно: `.claude/rules/protected-main.md`.
+- Текст PR: связь с **issue** этого репозитория (`Refs #NN` или `Closes #NN`).
+
 ## Стек (сверка)
 
 Ориентир: `architecture/technical/tech-stack.md` в vault — .NET **8**, EF Core **8**, Identity + JWT, FluentValidation, PostgreSQL **15**, REST + swagger. Не противоречить без явной пометки и согласования (CR).
