@@ -1,0 +1,16 @@
+name: Add issue to COOK org project
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  add-to-org-project-cookie:
+    name: Org project cookie (#2)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/COOKieProjectTeam/projects/2
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
