@@ -14,3 +14,14 @@
 - Спецификация в **vault**, не копировать простыни SRS в PR/issues.
 - Issues: поля формы `.github/ISSUE_TEMPLATE/task.yml`, блок **Trace** обязателен для связи с FR.
 - Диаграммы и зеркало репозитория **architecture**: [github.com/COOKieProjectTeam/architecture](https://github.com/COOKieProjectTeam/architecture).
+
+### API / качество перед PR
+
+- **Платформа:** **ASP.NET Core 8**, REST поверх версионированных маршрутов (канонический префикс **`api/v1`**, см. SRS/архитектурное зеркало); не добавлять несогласованные версии без trace в issue и обновления спеки/vault при необходимости.
+- **Документация контрактов:** локально при запущенном API — Swagger UI типично на **`/swagger`** (конкретный путь см. код `Program.cs`/регистрация OpenAPI по мере появления приложения в репо).
+- **Health:** при наличии production-oriented endpoints держите отдельно liveness/readiness и не сваливать в них бизнес-логику.
+- **От issue к коду:** в PR явная связь (`Refs`/`Closes`); затем соответствие **Trace ↔ контроллер/сервис ↔ тесты** (юнит/интеграционные там, где заведены в решении).
+
+### Организационная доска
+
+- Единый org Projects **«cookie»**, workflow добавления issue: см. [github-project-cookie](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/process/github-project-cookie.md).

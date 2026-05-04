@@ -12,6 +12,8 @@
 
 Форма: `.github/ISSUE_TEMPLATE/task.yml`.
 
+См. также org-проект **«cookie»** и метки `area:*` — [github-project-cookie](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/process/github-project-cookie.md).
+
 ## Pull Request
 
 - **`main`** защищён на GitHub: работа только в отдельной ветке и через **Pull Request**. Подробно: `.claude/rules/protected-main.md`.
