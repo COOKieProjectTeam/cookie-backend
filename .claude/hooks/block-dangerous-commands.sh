@@ -15,12 +15,18 @@ emit_deny() {
   exit 2
 }
 
-if ! command -v jq >/dev/null 2>&1; then
-  emit_deny "jq is required for command protection hooks but is not installed."
-fi
-
 INPUT=$(cat)
-COMMAND=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // empty' 2>/dev/null || true)
+_PY=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
+if [ -n "$_PY" ]; then
+  COMMAND=$(printf '%s' "$INPUT" | "$_PY" -c \
+    "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('command',''))" \
+    2>/dev/null || true)
+else
+  COMMAND=$(printf '%s' "$INPUT" \
+    | grep -o '"command"[[:space:]]*:[[:space:]]*"[^"]*"' \
+    | sed 's/.*"command"[[:space:]]*:[[:space:]]*"\([^"]*\)"/\1/' \
+    | head -1 || true)
+fi
 [ -z "$COMMAND" ] && exit 0
 
 # ── Protected branch list ────────────────────────────────────────────────

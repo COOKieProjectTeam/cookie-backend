@@ -3,19 +3,43 @@
 # Used as a PreToolUse hook for Edit|Write operations.
 # Exit 2 = block. Exit 0 = allow.
 
-# Requires jq for JSON parsing. Allow if missing (don't block the user)
-if ! command -v jq >/dev/null 2>&1; then
-  exit 0
-fi
-
 INPUT=$(cat)
-TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name // empty')
+_PY=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
+
+if [ -n "$_PY" ]; then
+  TOOL_NAME=$(printf '%s' "$INPUT" | "$_PY" -c \
+    "import sys,json; d=json.load(sys.stdin); print(d.get('tool_name',''))" \
+    2>/dev/null || true)
+else
+  TOOL_NAME=$(printf '%s' "$INPUT" \
+    | grep -o '"tool_name"[[:space:]]*:[[:space:]]*"[^"]*"' \
+    | sed 's/.*"tool_name"[[:space:]]*:[[:space:]]*"\([^"]*\)"/\1/' \
+    | head -1 || true)
+fi
 
 # Extract the content being written
 if [ "$TOOL_NAME" = "Write" ]; then
-  CONTENT=$(echo "$INPUT" | jq -r '.tool_input.content // empty')
+  if [ -n "$_PY" ]; then
+    CONTENT=$(printf '%s' "$INPUT" | "$_PY" -c \
+      "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('content',''))" \
+      2>/dev/null || true)
+  else
+    CONTENT=$(printf '%s' "$INPUT" \
+      | grep -o '"content"[[:space:]]*:[[:space:]]*"[^"]*"' \
+      | sed 's/.*"content"[[:space:]]*:[[:space:]]*"\([^"]*\)"/\1/' \
+      | head -1 || true)
+  fi
 elif [ "$TOOL_NAME" = "Edit" ]; then
-  CONTENT=$(echo "$INPUT" | jq -r '.tool_input.new_string // empty')
+  if [ -n "$_PY" ]; then
+    CONTENT=$(printf '%s' "$INPUT" | "$_PY" -c \
+      "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('new_string',''))" \
+      2>/dev/null || true)
+  else
+    CONTENT=$(printf '%s' "$INPUT" \
+      | grep -o '"new_string"[[:space:]]*:[[:space:]]*"[^"]*"' \
+      | sed 's/.*"new_string"[[:space:]]*:[[:space:]]*"\([^"]*\)"/\1/' \
+      | head -1 || true)
+  fi
 else
   exit 0
 fi
