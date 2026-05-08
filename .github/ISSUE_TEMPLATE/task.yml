@@ -1,12 +1,12 @@
 name: Task — feature / sprint work
-description: Задача с трассировкой к vault (backend: API, модели, ошибки)
+description: Задача с трассировкой к architecture repo (backend: API, модели, ошибки)
 title: '[S+] API: '
 labels: []
 body:
   - type: markdown
     attributes:
       value: |
-        **cookie-backend:** опишите контракт (эндпоинты, схемы, коды ошибок), миграции и нефункциональные ограничения (rate limit, идемпотентность). В **Companion** укажите номер парной задачи в **cookie-frontend**. Структура секций — см. vault `Knowledge/Development/Projects/COOKie/process/github-issue-format.md`.
+        **cookie-backend:** опишите контракт (эндпоинты, схемы, коды ошибок), миграции и нефункциональные ограничения (rate limit, идемпотентность). В **Companion** укажите номер парной задачи в **cookie-frontend**. Структура секций — см. [github-issue-format.md](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/process/github-issue-format.md) в architecture repo.
   - type: textarea
     id: goal
     attributes:
@@ -23,18 +23,28 @@ body:
     id: trace
     attributes:
       label: Trace
-      description: FR (обязательно). Опционально UC, NFR. Строка «Vault:» — путь к заметке в Obsidian.
+      description: FR (обязательно). Опционально UC, NFR. Строка «Ref:» — ссылка на architecture repo.
       placeholder: |
         - FR: FR-US-001
         - NFR: …
-        - Vault: Knowledge/Development/Projects/COOKie/requirements/SRS.md §…
+        - Ref: https://github.com/COOKieProjectTeam/architecture/blob/main/docs/requirements/SRS.md §…
     validations:
       required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: API contract
+      description: Endpoint(s), request schema, response schema, HTTP status codes.
+      placeholder: |
+        POST /api/v1/auth/login      → 200 { accessToken, expiresIn } | 400 | 401
+        GET  /api/v1/recipes         → 200 { items, total, page, pageSize } | 401
+    validations:
+      required: false
   - type: textarea
     id: acceptance
     attributes:
       label: Acceptance criteria
-      description: Контракт API, тесты, наблюдаемость (логи/метрики) при необходимости.
+      description: OpenAPI задокументирован, тесты (unit/integration), happy path + error paths.
     validations:
       required: true
   - type: textarea
