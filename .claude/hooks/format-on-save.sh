@@ -6,7 +6,11 @@
 # (requires both the binary AND a config file).
 
 INPUT=$(cat)
-_PY=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
+_PY=""
+_pycand=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
+if [ -n "$_pycand" ] && printf '' | "$_pycand" -c "pass" >/dev/null 2>&1; then
+  _PY="$_pycand"
+fi
 if [ -n "$_PY" ]; then
   FILE_PATH=$(printf '%s' "$INPUT" | "$_PY" -c \
     "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))" \

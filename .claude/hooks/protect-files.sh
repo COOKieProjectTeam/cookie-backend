@@ -68,9 +68,9 @@ case "$PATH_LC" in
     emit deny "Cannot edit files inside secrets/" ;;
   */.env|*/.env.*)
     emit deny "Cannot edit .env files" ;;
-  */.claude/hooks/*)
+  .claude/hooks/*|*/.claude/hooks/*)
     emit deny "Cannot edit hook scripts. These enforce security boundaries." ;;
-  */.claude/settings.json|*/.claude/settings.local.json)
+  .claude/settings.json|.claude/settings.local.json|*/.claude/settings.json|*/.claude/settings.local.json)
     emit ask "Editing settings.json controls permissions and hooks. Confirm this change." ;;
 esac
 

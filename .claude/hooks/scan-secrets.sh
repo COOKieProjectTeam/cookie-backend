@@ -4,7 +4,11 @@
 # Exit 2 = block. Exit 0 = allow.
 
 INPUT=$(cat)
-_PY=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
+_PY=""
+_pycand=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
+if [ -n "$_pycand" ] && printf '' | "$_pycand" -c "pass" >/dev/null 2>&1; then
+  _PY="$_pycand"
+fi
 
 if [ -n "$_PY" ]; then
   TOOL_NAME=$(printf '%s' "$INPUT" | "$_PY" -c \
