@@ -2,7 +2,7 @@
 
 ## Канон текста требований
 
-Источник правды: репозиторий [**architecture**](https://github.com/COOKieProjectTeam/architecture) — `docs/requirements/FRS.md`, `docs/technical/tech-stack.md`. Не дублировать полные тексты спеки в issues.
+Источник правды: репозиторий [**architecture**](https://github.com/COOKieProjectTeam/architecture) — `docs/requirements/FRS.md`, `docs/architecture/technical/tech-stack.md`. Не дублировать полные тексты спеки в issues.
 
 ## Формат issue
 
@@ -21,4 +21,4 @@
 
 ## Стек (сверка)
 
-Канон: **.NET 8**, **ASP.NET Core 8**, EF Core 8, Identity + JWT, FluentValidation, PostgreSQL 15, REST + Swagger — см. [`docs/technical/tech-stack.md`](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/technical/tech-stack.md).
+Канон: **.NET 8**, **ASP.NET Core 8**, EF Core 8, Identity + JWT, FluentValidation, PostgreSQL 15, REST + Swagger — см. [`docs/architecture/technical/tech-stack.md`](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/architecture/technical/tech-stack.md).
