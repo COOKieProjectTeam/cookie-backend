@@ -2,23 +2,23 @@
 
 ## Канон текста требований
 
-Ведущая копия: **Obsidian**, папка `Knowledge/Development/Projects/COOKie/`. После создания issue полный текст задачи живёт в **GitHub**; в vault остаются ссылки и трассировка (`requirements/traceability.md` и спринты).
+Источник правды: репозиторий [**architecture**](https://github.com/COOKieProjectTeam/architecture) — `docs/requirements/FRS.md`, `docs/technical/tech-stack.md`. Не дублировать полные тексты спеки в issues.
 
 ## Формат issue
 
-Заголовок: `[S1|…] API: …` (см. `process/github-issue-format.md` в vault).
+Заголовок: `[S1|…] API: …`. Секции как в [`docs/process/github-issue-format.md`](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/process/github-issue-format.md); форма — `.github/ISSUE_TEMPLATE/task.yml`.
 
-Секции: **Goal**, **Scope (in/out)**, **Trace** (FR, опционально UC/NFR, строка `Vault:` с путём к файлу vault), **Acceptance criteria**, **Companion** (ссылка на `cookie-frontend` при необходимости), **Notes**.
+**Trace:** FR + ссылка на раздел в `architecture/docs/requirements/FRS.md §…`.
 
-Форма: `.github/ISSUE_TEMPLATE/task.yml`.
+**Companion:** при вертикали указывать issue в `cookie-frontend`.
 
-См. также org-проект **«cookie»** и метки `area:*` — [github-project-cookie](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/process/github-project-cookie.md).
+**Организационная доска:** Projects v2 org **«cookie»** — метки **`area:frontend`**, **`area:backend`**, **`area:infra`**, **`area:docs`**. Процесс: [github-project-cookie](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/process/github-project-cookie.md).
 
 ## Pull Request
 
-- **`main`** защищён на GitHub: работа только в отдельной ветке и через **Pull Request**. Подробно: `.claude/rules/protected-main.md`.
-- Текст PR: связь с **issue** этого репозитория (`Refs #NN` или `Closes #NN`).
+- **`main`** защищён: только ветка + **PR**. См. `.claude/rules/protected-main.md`.
+- В описании PR — ссылка на **issue** (`Refs`/`Closes #NN`).
 
 ## Стек (сверка)
 
-Ориентир: `architecture/technical/tech-stack.md` в vault — .NET **8**, EF Core **8**, Identity + JWT, FluentValidation, PostgreSQL **15**, REST + swagger. Не противоречить без явной пометки и согласования (CR).
+Канон: **.NET 8**, **ASP.NET Core 8**, EF Core 8, Identity + JWT, FluentValidation, PostgreSQL 15, REST + Swagger — см. [`docs/technical/tech-stack.md`](https://github.com/COOKieProjectTeam/architecture/blob/main/docs/technical/tech-stack.md).
