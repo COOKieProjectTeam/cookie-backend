@@ -16,11 +16,7 @@ emit_deny() {
 }
 
 INPUT=$(cat)
-_PY=""
-_pycand=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
-if [ -n "$_pycand" ] && printf '' | "$_pycand" -c "pass" >/dev/null 2>&1; then
-  _PY="$_pycand"
-fi
+_PY=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
 if [ -n "$_PY" ]; then
   COMMAND=$(printf '%s' "$INPUT" | "$_PY" -c \
     "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('command',''))" \
@@ -39,6 +35,7 @@ if GIT_DEFAULT=$(git config --get init.defaultBranch 2>/dev/null) && [ -n "$GIT_
   DEFAULT_BRANCHES="$DEFAULT_BRANCHES,$GIT_DEFAULT"
 fi
 PROTECTED_BRANCHES="${CLAUDE_PROTECTED_BRANCHES:-$DEFAULT_BRANCHES}"
+PROTECTED_BRANCHES=$(printf '%s' "$PROTECTED_BRANCHES" | tr -cd 'a-zA-Z0-9,/_-')
 # Build a regex alternation: main|master|develop|...
 BR_REGEX=$(printf '%s' "$PROTECTED_BRANCHES" | tr ',' '\n' | awk 'NF{printf "%s%s",sep,$0; sep="|"}')
 
@@ -50,10 +47,12 @@ if contains_cmd '(^|[;&|()]+[[:space:]]*)git[[:space:]]+push'; then
   # Explicit refspec to a protected branch (origin main, :main, HEAD:main, remote branch)
   if contains_cmd "git[[:space:]]+push[[:space:]]+[^[:space:]]+[[:space:]]+([^[:space:]]*:)?($BR_REGEX)(\$|[[:space:]])"; then
     MATCHED_BRANCH=$(printf '%s' "$COMMAND" | grep -oE "($BR_REGEX)(\$|[[:space:]])" | head -1 | tr -d '[:space:]')
+    MATCHED_BRANCH="${MATCHED_BRANCH:0:64}"
     emit_deny "Blocked: push to protected branch '${MATCHED_BRANCH:-main}'. Use a feature branch and open a PR."
   fi
   if contains_cmd "git[[:space:]]+push.*:($BR_REGEX)(\$|[[:space:]])"; then
     MATCHED_BRANCH=$(printf '%s' "$COMMAND" | grep -oE ":($BR_REGEX)(\$|[[:space:]])" | head -1 | tr -d ': [:space:]')
+    MATCHED_BRANCH="${MATCHED_BRANCH:0:64}"
     emit_deny "Blocked: push to protected branch '${MATCHED_BRANCH:-main}' via refspec. Use a feature branch and open a PR."
   fi
   # Bare `git push` while on protected branch
